@@ -1,0 +1,59 @@
+public class Customer {
+    private int customerId;
+    private String name;
+    private String mailId;
+    private String phoneNumber;
+
+    public Customer(int customerId, String name, String mailId, String phoneNumber) {
+        this.customerId = customerId;
+        this.name = name;
+        this.mailId = mailId;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMailId() {
+        return mailId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+}
+
+public class Mobile {
+    private int mobileId;
+    private String name;
+    private double price;
+    private int quantity;
+
+    public Mobile(int mobileId, String name, double price, int quantity) {
+        this.mobileId = mobileId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public int getMobileId() {
+        return mobileId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+}

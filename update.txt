@@ -1,0 +1,87 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class MobilePurchaseSystem {
+    private Connection connection;
+
+    public MobilePurchaseSystem(Connection connection) {
+        this.connection = connection;
+    }
+
+    // B) Update Mobile Quantity
+    public void updateMobileQuantity(int mobileId, int quantityPurchased) {
+        try {
+            String updateQuery = "UPDATE mobiles SET quantity = quantity - ? WHERE mobileid = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setInt(1, quantityPurchased);
+            preparedStatement.setInt(2, mobileId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // C) View Details of All Mobiles
+    public void viewAllMobileDetails() {
+        try {
+            String selectQuery = "SELECT * FROM mobiles";
+            PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int mobileId = resultSet.getInt("mobileid");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+
+                System.out.println("Mobile ID: " + mobileId);
+                System.out.println("Name: " + name);
+                System.out.println("Price: " + price);
+                System.out.println("Quantity: " + quantity);
+                System.out.println("------------");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // D) Delete a Mobile
+    public void deleteMobile(int mobileId) {
+        try {
+            String deleteQuery = "DELETE FROM mobiles WHERE mobileid = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, mobileId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // E) Search Mobiles Based on Price Range
+    public void searchMobilesByPriceRange(double minPrice, double maxPrice) {
+        try {
+            String selectQuery = "SELECT * FROM mobiles WHERE price >= ? AND price <= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setDouble(1, minPrice);
+            preparedStatement.setDouble(2, maxPrice);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int mobileId = resultSet.getInt("mobileid");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+
+                System.out.println("Mobile ID: " + mobileId);
+                System.out.println("Name: " + name);
+                System.out.println("Price: " + price);
+                System.println("Quantity: " + quantity);
+                System.out.println("------------");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

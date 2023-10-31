@@ -1,0 +1,21 @@
+package com.Methods;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class MobilePurchaseSystem {
+    public void insertCustomerAndPurchaseDetails(Customer customer, int mobileId) {
+        try {
+            Connection connection = new DatabaseConnection().getConnection();
+            String sql = "INSERT INTO purchasedetails (cname, mailid, phoneno, purchasedate, mobileid) VALUES (?, ?, ?, CURRENT_DATE, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, customer.getName());
+            statement.setString(2, customer.getMailId());
+            statement.setString(3, customer.getPhoneNumber());
+            statement.setInt(4, mobileId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

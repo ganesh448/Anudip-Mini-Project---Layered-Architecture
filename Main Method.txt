@@ -1,0 +1,53 @@
+package com.Application;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Main {
+    public static void main(String[] args) {
+        Connection connection = null;
+
+        try {
+            // Establish a database connection (replace with your database details)
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "your_username", "your_password");
+
+            MobilePurchaseSystem mobilePurchaseSystem = new MobilePurchaseSystem(connection);
+
+            // Insert Customer and Purchase Details
+            // Assuming you have a Customer object, and mobileId is the ID of the purchased mobile
+            // You can call mobilePurchaseSystem.insertCustomerAndPurchaseDetails(customer, mobileId);
+
+            // Update Mobile Quantity
+            // Replace mobileId and quantityPurchased with actual values
+            // mobilePurchaseSystem.updateMobileQuantity(mobileId, quantityPurchased);
+
+            // View Details of All Mobiles
+	
+		
+	    mobilePurchaseSystem.insertCustomerAndPurchaseDetails();
+            mobilePurchaseSystem.viewAllMobileDetails();
+	    mobilePurchaseSystem.updateMobileQuantity();
+	    mobilePurchaseSystem.deleteMobile();
+	    mobilePurchaseSystem.searchMobilesByPriceRange();
+
+            // Delete a Mobile
+            // Replace mobileId with the ID of the mobile to be deleted
+            // mobilePurchaseSystem.deleteMobile(mobileId);
+
+            // Search Mobiles Based on Price Range
+            // Replace minPrice and maxPrice with the desired price range
+            // mobilePurchaseSystem.searchMobilesByPriceRange(minPrice, maxPrice);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
